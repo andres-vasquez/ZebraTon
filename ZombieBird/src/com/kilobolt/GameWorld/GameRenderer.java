@@ -178,45 +178,46 @@ public class GameRenderer {
 		}
 
 	}
-
+	
+	private void drawMensajes(String[] filas)
+	{
+		batcher.draw(scoreboard, 22, midPointY - 30, 97, 37);
+		int PosY=midPointY - 20;
+		for(int i=0;i<filas.length;i++)			
+			AssetLoader.whiteFont.draw(batcher, filas[i],28, PosY+(10*i));
+	}
+	
 	private void drawScoreboard() {
 		batcher.draw(scoreboard, 22, midPointY - 30, 97, 37);
-
-		batcher.draw(noStar, 25, midPointY - 15, 10, 10);
-		batcher.draw(noStar, 37, midPointY - 15, 10, 10);
-		batcher.draw(noStar, 49, midPointY - 15, 10, 10);
-		batcher.draw(noStar, 61, midPointY - 15, 10, 10);
-		batcher.draw(noStar, 73, midPointY - 15, 10, 10);
-
-		if (myWorld.getScore() > 2) {
+		
+		/*if (myWorld.getScore() > 2) {
 			batcher.draw(star, 73, midPointY - 15, 10, 10);
 		}
-
 		if (myWorld.getScore() > 17) {
 			batcher.draw(star, 61, midPointY - 15, 10, 10);
 		}
-
 		if (myWorld.getScore() > 50) {
 			batcher.draw(star, 49, midPointY - 15, 10, 10);
 		}
-
 		if (myWorld.getScore() > 80) {
 			batcher.draw(star, 37, midPointY - 15, 10, 10);
 		}
-
 		if (myWorld.getScore() > 120) {
 			batcher.draw(star, 25, midPointY - 15, 10, 10);
-		}
+		}*/
 
 		int length = ("" + myWorld.getScore()).length();
-
+		AssetLoader.whiteFont.draw(batcher, "MAX",96, midPointY - 27);
 		AssetLoader.whiteFont.draw(batcher, "" + myWorld.getScore(),
 				104 - (2 * length), midPointY - 20);
 
 		int length2 = ("" + AssetLoader.getHighScore()).length();
+		AssetLoader.whiteFont.draw(batcher, "score",93, midPointY - 12);
 		AssetLoader.whiteFont.draw(batcher, "" + AssetLoader.getHighScore(),
 				104 - (2.5f * length2), midPointY - 3);
-
+		
+		AssetLoader.whiteFont.draw(batcher, "" + "Sigue",28, midPointY - 20);
+		AssetLoader.whiteFont.draw(batcher, "" + "Participando",28, midPointY - 10);
 	}
 
 	private void drawRetry() {
@@ -290,6 +291,11 @@ public class GameRenderer {
 			drawRetry();
 		} else if (myWorld.isHighScore()) {
 			drawScoreboard();
+			drawBird(runTime);
+			drawHighScore();
+			drawRetry();
+		}else if (myWorld.isMensaje()){
+			drawMensajes(myWorld.getMensajes());
 			drawBird(runTime);
 			drawHighScore();
 			drawRetry();

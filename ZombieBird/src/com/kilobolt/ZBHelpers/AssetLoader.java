@@ -107,7 +107,18 @@ public class AssetLoader {
 			prefs.putInteger("highScore", 0);
 		}
 	}
-
+	
+	public static String getMensaje()
+	{
+		return prefs.getString("mensaje");
+	}
+	
+	public static void setMensaje(String val)
+	{
+		prefs.putString("mensaje", val);
+		prefs.flush();
+	}
+	
 	public static void setHighScore(int val) {
 		prefs.putInteger("highScore", val);
 		prefs.flush();

@@ -37,8 +37,6 @@ public class InputHandler implements InputProcessor {
 		menuButtons.add(playButton);
 	}
 	
-	
-	
 	//Salto
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) 
 	{
@@ -50,12 +48,18 @@ public class InputHandler implements InputProcessor {
 		} else if (myWorld.isReady()) {
 			myWorld.start();
 			myBird.onClick();
-		} else if (myWorld.isRunning()) {
+		}
+		else if (myWorld.isMensaje())
+		{
+			myWorld.restart(myWorld.getScore());
+		}
+		else if (myWorld.isRunning()) {
 			myBird.onClick();
 		}
 		
 		if (myWorld.isGameOver() || myWorld.isHighScore()) {
-			myWorld.restart();
+			myWorld.setMinAnterior(-99);
+			myWorld.restart(0);
 		}
 		return true;
 	}
@@ -84,7 +88,7 @@ public class InputHandler implements InputProcessor {
 			}
 			myBird.onClick();
 			if (myWorld.isGameOver() || myWorld.isHighScore()) {
-				myWorld.restart();
+				myWorld.restart(0);
 			}
 		}
 		return false;

@@ -41,16 +41,15 @@ public class ScrollHandler
 
 	}
 
-	public void update(float delta) {
-		// Update our objects
+	public void update(float delta) 
+	{
 		frontGrass.update(delta);
 		backGrass.update(delta);
 		pipe1.update(delta);
 		pipe2.update(delta);
 		pipe3.update(delta);
 
-		// Check if any of the pipes are scrolled left,
-		// and reset accordingly
+		// Si ya paso del scroll lo agrega
 		if (pipe1.isScrolledLeft()) {
 			pipe1.reset(pipe3.getTailX() + PIPE_GAP);
 		} else if (pipe2.isScrolledLeft()) {
@@ -63,10 +62,8 @@ public class ScrollHandler
 		// Same with grass
 		if (frontGrass.isScrolledLeft()) {
 			frontGrass.reset(backGrass.getTailX());
-
 		} else if (backGrass.isScrolledLeft()) {
 			backGrass.reset(frontGrass.getTailX());
-
 		}
 	}
 
@@ -80,34 +77,39 @@ public class ScrollHandler
 
 	public boolean collides(Bird bird) {
 
+		//Capta los saltos de 3 objetos a la vez
 		if (!pipe1.isScored()
 				&& pipe1.getX() + (pipe1.getWidth() / 2) < bird.getX()
-						+ bird.getWidth()) {
+						+ bird.getWidth()) 
+		{
 			addScore(1);
 			pipe1.setScored(true);
 			AssetLoader.coin.play();
-		} else if (!pipe2.isScored()
+		}
+		else if (!pipe2.isScored()
 				&& pipe2.getX() + (pipe2.getWidth() / 2) < bird.getX()
 						+ bird.getWidth()) {
 			addScore(1);
 			pipe2.setScored(true);
 			AssetLoader.coin.play();
-
-		} else if (!pipe3.isScored()
+		}
+		else if (!pipe3.isScored()
 				&& pipe3.getX() + (pipe3.getWidth() / 2) < bird.getX()
 						+ bird.getWidth()) {
 			addScore(1);
 			pipe3.setScored(true);
 			AssetLoader.coin.play();
-
 		}
-
-		return (pipe1.collides(bird) || pipe2.collides(bird) || pipe3
-				.collides(bird));
+		
+		return (pipe1.collides(bird) || pipe2.collides(bird) || pipe3.collides(bird));
 	}
 
 	private void addScore(int increment) {
 		gameWorld.addScore(increment);
+	}
+	
+	public int getScore(){
+		return gameWorld.getScore();
 	}
 
 	public Grass getFrontGrass() {
@@ -130,7 +132,8 @@ public class ScrollHandler
 		return pipe3;
 	}
 
-	public void onRestart() {
+	public void onRestart() 
+	{
 		frontGrass.onRestart(0, SCROLL_SPEED);
 		backGrass.onRestart(frontGrass.getTailX(), SCROLL_SPEED);
 		pipe1.onRestart(210, SCROLL_SPEED);
