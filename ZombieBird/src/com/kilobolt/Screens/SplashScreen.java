@@ -15,8 +15,8 @@ import com.kilobolt.TweenAccessors.SpriteAccessor;
 import com.kilobolt.ZBHelpers.AssetLoader;
 import com.kilobolt.ZombieBird.ZBGame;
 
-public class SplashScreen implements Screen {
-
+public class SplashScreen implements Screen 
+{
 	private TweenManager manager;
 	private SpriteBatch batcher;
 	private Sprite sprite;
@@ -43,7 +43,8 @@ public class SplashScreen implements Screen {
 		batcher = new SpriteBatch();
 	}
 
-	private void setupTween() {
+	private void setupTween() 
+	{
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		manager = new TweenManager();
 
@@ -60,7 +61,6 @@ public class SplashScreen implements Screen {
 				.start(manager);
 	}
 
-	@Override
 	public void render(float delta) {
 		manager.update(delta);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -70,12 +70,10 @@ public class SplashScreen implements Screen {
 		batcher.end();
 	}
 
-	@Override
 	public void resize(int width, int height) {
 
 	}
 
-	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
 

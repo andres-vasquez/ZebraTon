@@ -3,7 +3,8 @@ package com.kilobolt.GameObjects;
 import com.kilobolt.GameWorld.GameWorld;
 import com.kilobolt.ZBHelpers.AssetLoader;
 
-public class ScrollHandler {
+public class ScrollHandler 
+{
 
 	private Grass frontGrass, backGrass;
 	private Pipe pipe1, pipe2, pipe3;
@@ -12,17 +13,16 @@ public class ScrollHandler {
 
 	private GameWorld gameWorld;
 
-	public ScrollHandler(GameWorld gameWorld, float yPos) {
+	public ScrollHandler(GameWorld gameWorld, float yPos) 
+	{
 		this.gameWorld = gameWorld;
+		
 		frontGrass = new Grass(0, yPos, 143, 11, SCROLL_SPEED);
-		backGrass = new Grass(frontGrass.getTailX(), yPos, 143, 11,
-				SCROLL_SPEED);
+		backGrass = new Grass(frontGrass.getTailX(), yPos, 143, 11,SCROLL_SPEED);
 
 		pipe1 = new Pipe(210, 0, 22, 60, SCROLL_SPEED, yPos);
-		pipe2 = new Pipe(pipe1.getTailX() + PIPE_GAP, 0, 22, 70, SCROLL_SPEED,
-				yPos);
-		pipe3 = new Pipe(pipe2.getTailX() + PIPE_GAP, 0, 22, 60, SCROLL_SPEED,
-				yPos);
+		pipe2 = new Pipe(pipe1.getTailX() + PIPE_GAP, 0, 22, 70, SCROLL_SPEED,yPos);
+		pipe3 = new Pipe(pipe2.getTailX() + PIPE_GAP, 0, 22, 60, SCROLL_SPEED,yPos);
 	}
 
 	public void updateReady(float delta) {

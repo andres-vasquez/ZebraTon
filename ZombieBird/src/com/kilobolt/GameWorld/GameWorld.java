@@ -21,62 +21,68 @@ public class GameWorld {
 	public enum GameState {
 		MENU, READY, RUNNING, GAMEOVER, HIGHSCORE
 	}
-
-	public GameWorld(int midPointY) {
+	
+	/*
+	 * Inicializa el juego, pantalla de inicio
+	 */
+	public GameWorld(int midPointY) 
+	{
 		currentState = GameState.MENU;
 		this.midPointY = midPointY;
 		bird = new Bird(33, midPointY - 5, 17, 12);
-		// The grass should start 66 pixels below the midPointY
 		scroller = new ScrollHandler(this, midPointY + 66);
 		ground = new Rectangle(0, midPointY + 66, 137, 11);
 	}
 
-	public void update(float delta) {
+	public void update(float delta) 
+	{
 		runTime += delta;
-
 		switch (currentState) {
 		case READY:
 		case MENU:
 			updateReady(delta);
 			break;
-
 		case RUNNING:
 			updateRunning(delta);
 			break;
 		default:
 			break;
 		}
-
 	}
 
-	private void updateReady(float delta) {
+	private void updateReady(float delta) 
+	{
 		bird.updateReady(runTime);
 		scroller.updateReady(delta);
 	}
 
-	public void updateRunning(float delta) {
+	public void updateRunning(float delta) 
+	{
+		//TODO: delta=delta/1.5f;  ACA se cambia la velocidad
 		if (delta > .15f) {
 			delta = .15f;
 		}
 
 		bird.update(delta);
 		scroller.update(delta);
-
-		if (scroller.collides(bird) && bird.isAlive()) {
+		
+		//Si se choca con un obstaculo
+		if (scroller.collides(bird) && bird.isAlive()) 
+		{
 			scroller.stop();
 			bird.die();
 			AssetLoader.dead.play();
 			renderer.prepareTransition(255, 255, 255, .3f);
-
 			AssetLoader.fall.play();
 		}
-
-		if (Intersector.overlaps(bird.getBoundingCircle(), ground)) {
-
-			if (bird.isAlive()) {
+		
+		//Si se cae al piso
+		if (Intersector.overlaps(bird.getBoundingCircle(), ground)) 
+		{
+			if (bird.isAlive()) 
+			{
 				AssetLoader.dead.play();
 				renderer.prepareTransition(255, 255, 255, .3f);
-
 				bird.die();
 			}
 
@@ -84,7 +90,8 @@ public class GameWorld {
 			bird.decelerate();
 			currentState = GameState.GAMEOVER;
 
-			if (score > AssetLoader.getHighScore()) {
+			if (score > AssetLoader.getHighScore()) 
+			{
 				AssetLoader.setHighScore(score);
 				currentState = GameState.HIGHSCORE;
 			}
