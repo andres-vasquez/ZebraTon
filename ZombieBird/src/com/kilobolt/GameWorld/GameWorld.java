@@ -85,9 +85,8 @@ public class GameWorld {
 		if(scroller.getScore()>0 && scroller.getScore()>minAnterior && scroller.getScore()%10==0){
 			String mensaje_seleccionado=this.mensajes_total[randInt(0, this.mensajes_total.length-1)];
 			this.mensajes=mensaje_seleccionado.split("\\|");
-			
-			scroller.stop();
 			bird.die();
+			scroller.stop();
 			mensaje();
 			minAnterior=scroller.getScore();
 		}
